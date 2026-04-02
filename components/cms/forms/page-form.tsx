@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 
+import { MediaBrowser } from "@/components/cms/media-browser";
 import { ImageUrlPreview } from "@/components/cms/image-url-preview";
 import { SeoScorePanel } from "@/components/cms/seo-score-panel";
 import { TiptapEditor } from "@/components/editor/tiptap-editor";
@@ -11,9 +12,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { slugify } from "@/lib/utils";
+import type { MediaItem } from "@/types/database";
 
 type PageFormProps = {
   action: (formData: FormData) => void | Promise<void>;
+  mediaItems: MediaItem[];
   previewHref?: string;
   initial?: {
     id?: string;
@@ -35,7 +38,7 @@ type PageFormProps = {
   };
 };
 
-export function PageForm({ action, previewHref, initial }: PageFormProps) {
+export function PageForm({ action, mediaItems, previewHref, initial }: PageFormProps) {
   const [title, setTitle] = useState(initial?.title ?? "");
   const [slug, setSlug] = useState(initial?.slug ?? "");
   const [slugTouched, setSlugTouched] = useState(Boolean(initial?.slug));
@@ -47,6 +50,7 @@ export function PageForm({ action, previewHref, initial }: PageFormProps) {
   const [metaDescription, setMetaDescription] = useState(initial?.meta_description ?? "");
   const [focusKeyword, setFocusKeyword] = useState(initial?.focus_keyword ?? "");
   const [canonicalUrl, setCanonicalUrl] = useState(initial?.canonical_url ?? "");
+  const [ogImageUrl, setOgImageUrl] = useState(initial?.og_image_url ?? "");
 
   const derivedSlug = useMemo(() => slugify(title), [title]);
   const currentSlug = slugTouched ? slug : derivedSlug;
@@ -158,7 +162,7 @@ export function PageForm({ action, previewHref, initial }: PageFormProps) {
             </div>
             <div>
               <Label htmlFor="og_image_url">Open Graph image URL</Label>
-              <Input id="og_image_url" name="og_image_url" defaultValue={initial?.og_image_url ?? ""} />
+              <Input id="og_image_url" name="og_image_url" value={ogImageUrl} onChange={(e) => setOgImageUrl(e.target.value)} />
             </div>
             <div className="md:col-span-2">
               <Label htmlFor="og_description">Open Graph description</Label>
@@ -213,16 +217,29 @@ export function PageForm({ action, previewHref, initial }: PageFormProps) {
         </div>
       </div>
 
-      <SeoScorePanel
-        title={title}
-        slug={currentSlug}
-        contentHtml={content}
-        metaDescription={metaDescription}
-        seoTitle={seoTitle}
-        focusKeyword={focusKeyword}
-        imageAlt={imageAlt}
-        canonicalUrl={canonicalUrl}
-      />
+      <div className="space-y-5">
+        <SeoScorePanel
+          title={title}
+          slug={currentSlug}
+          contentHtml={content}
+          metaDescription={metaDescription}
+          seoTitle={seoTitle}
+          focusKeyword={focusKeyword}
+          imageAlt={imageAlt}
+          canonicalUrl={canonicalUrl}
+        />
+
+        <MediaBrowser
+          items={mediaItems.filter((item) => item.media_type === "image")}
+          onPickFeatured={(url, alt) => {
+            setFeaturedImageUrl(url);
+            if (!imageAlt) {
+              setImageAlt(alt);
+            }
+          }}
+          onPickOg={(url) => setOgImageUrl(url)}
+        />
+      </div>
     </form>
   );
 }

@@ -14,11 +14,12 @@ export default async function EditPostPage({ params }: EditPostPageProps) {
   const cmsBasePath = getCmsBasePath();
   const supabase = await createSupabaseServerClient();
 
-  const [postRes, categoriesRes, tagsRes, postTagsRes] = await Promise.all([
+  const [postRes, categoriesRes, tagsRes, postTagsRes, mediaItemsRes] = await Promise.all([
     supabase.from("posts").select("*").eq("id", id).maybeSingle(),
     supabase.from("categories").select("id,name,slug").order("name"),
     supabase.from("tags").select("id,name,slug").order("name"),
     supabase.from("post_tags").select("tag_id").eq("post_id", id),
+    supabase.from("media_items").select("*").order("created_at", { ascending: false }),
   ]);
 
   if (!postRes.data) notFound();
@@ -31,6 +32,7 @@ export default async function EditPostPage({ params }: EditPostPageProps) {
         action={updatePostAction}
         categories={categoriesRes.data ?? []}
         tags={tagsRes.data ?? []}
+        mediaItems={mediaItemsRes.data ?? []}
         previewHref={`${cmsBasePath}/preview/post/${id}`}
         initial={{
           ...postRes.data,

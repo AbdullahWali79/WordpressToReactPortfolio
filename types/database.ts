@@ -1,5 +1,6 @@
 export type Role = "admin" | "editor" | "author";
 export type ContentStatus = "draft" | "published";
+export type MediaType = "image" | "video";
 
 export type SeoEntity = {
   seo_title: string | null;
@@ -97,4 +98,17 @@ export type Profile = {
   email: string | null;
   role: Role;
   created_at: string;
+};
+
+export type MediaItem = {
+  id: string;
+  title: string;
+  media_type: MediaType;
+  source_url: string;
+  thumbnail_url: string | null;
+  alt_text: string | null;
+  provider: string | null;
+  notes: string | null;
+  created_at: string;
+  updated_at: string;
 };

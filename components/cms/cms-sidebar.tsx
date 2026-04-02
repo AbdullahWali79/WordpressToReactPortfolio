@@ -7,6 +7,7 @@ const navItems = [
   { href: "/posts", label: "Posts" },
   { href: "/pages", label: "Pages" },
   { href: "/portfolio", label: "Portfolio" },
+  { href: "/media", label: "Media" },
   { href: "/categories", label: "Categories" },
   { href: "/tags", label: "Tags" },
   { href: "/settings", label: "Settings" },

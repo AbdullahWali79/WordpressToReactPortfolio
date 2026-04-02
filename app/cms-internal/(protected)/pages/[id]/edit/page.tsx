@@ -13,13 +13,21 @@ export default async function EditCmsPage({ params }: EditCmsPageProps) {
   const { id } = await params;
   const cmsBasePath = getCmsBasePath();
   const supabase = await createSupabaseServerClient();
-  const { data: page } = await supabase.from("pages").select("*").eq("id", id).maybeSingle();
+  const [{ data: page }, { data: mediaItems }] = await Promise.all([
+    supabase.from("pages").select("*").eq("id", id).maybeSingle(),
+    supabase.from("media_items").select("*").order("created_at", { ascending: false }),
+  ]);
   if (!page) notFound();
 
   return (
     <div className="space-y-4">
       <h1 className="text-3xl font-semibold">Edit Page</h1>
-      <PageForm action={updateCmsPageAction} previewHref={`${cmsBasePath}/preview/page/${id}`} initial={page} />
+      <PageForm
+        action={updateCmsPageAction}
+        mediaItems={mediaItems ?? []}
+        previewHref={`${cmsBasePath}/preview/page/${id}`}
+        initial={page}
+      />
     </div>
   );
 }

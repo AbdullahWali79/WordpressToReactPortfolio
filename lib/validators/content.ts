@@ -96,3 +96,18 @@ export const settingsSchema = z.object({
       }
     }),
 });
+
+export const mediaSchema = z.object({
+  id: z.string().uuid().optional(),
+  title: z.string().trim().min(2).max(180),
+  media_type: z.enum(["image", "video"]),
+  source_url: z
+    .string()
+    .trim()
+    .min(10)
+    .refine((v) => isValidHttpUrl(v), "Please enter a valid media URL."),
+  thumbnail_url: optionalUrl,
+  alt_text: z.string().trim().max(180).optional().transform((v) => v || null),
+  provider: z.string().trim().max(80).optional().transform((v) => v || null),
+  notes: z.string().trim().max(400).optional().transform((v) => v || null),
+});
