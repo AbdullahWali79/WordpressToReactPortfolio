@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
 const cmsBasePath = process.env.CMS_BASE_PATH ?? "/secure-control-panel";
-const normalizedCmsPath = cmsBasePath.startsWith("/") ? cmsBasePath : `/${cmsBasePath}`;
+const normalizedCmsPath =
+  (cmsBasePath.startsWith("/") ? cmsBasePath : `/${cmsBasePath}`).replace(/\/+$/, "") || "/secure-control-panel";
 
 const contentSecurityPolicy = [
   "default-src 'self'",
@@ -23,11 +24,11 @@ const nextConfig: NextConfig = {
     return [
       {
         source: normalizedCmsPath,
-        destination: "/_cms/dashboard",
+        destination: "/cms-internal/dashboard",
       },
       {
         source: `${normalizedCmsPath}/:path*`,
-        destination: "/_cms/:path*",
+        destination: "/cms-internal/:path*",
       },
     ];
   },

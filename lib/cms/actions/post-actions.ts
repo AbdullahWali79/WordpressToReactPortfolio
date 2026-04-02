@@ -40,7 +40,7 @@ function parsePostFormData(formData: FormData) {
 function revalidatePostPaths(cmsBasePath: string) {
   revalidatePath("/blog");
   revalidatePath("/sitemap.xml");
-  revalidatePath("/_cms/posts");
+  revalidatePath("/cms-internal/posts");
   revalidatePath(`${cmsBasePath}/posts`);
 }
 

@@ -9,20 +9,21 @@ function isBypassPath(pathname: string): boolean {
   return ALLOWLIST.some((prefix) => pathname.startsWith(prefix));
 }
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   const cmsBasePath = getCmsBasePath();
+  const isCmsPath = pathname === cmsBasePath || pathname.startsWith(`${cmsBasePath}/`);
 
   if (isBypassPath(pathname)) {
     return NextResponse.next();
   }
 
   // Prevent direct access to the internal route namespace.
-  if (pathname.startsWith("/_cms")) {
+  if (pathname.startsWith("/cms-internal")) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
-  if (!pathname.startsWith(cmsBasePath)) {
+  if (!isCmsPath) {
     return NextResponse.next();
   }
 

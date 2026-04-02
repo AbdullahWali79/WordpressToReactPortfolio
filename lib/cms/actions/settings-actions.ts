@@ -51,7 +51,7 @@ export async function updateSettingsAction(formData: FormData) {
   revalidatePath("/contact");
   revalidatePath("/blog");
   revalidatePath("/portfolio");
-  revalidatePath("/_cms/settings");
+  revalidatePath("/cms-internal/settings");
   revalidatePath(`${cmsBasePath}/settings`);
   redirect(`${cmsBasePath}/settings`);
 }

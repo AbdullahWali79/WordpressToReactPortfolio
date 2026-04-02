@@ -43,7 +43,7 @@ function parsePortfolioFormData(formData: FormData) {
 function revalidatePortfolioPaths(cmsBasePath: string) {
   revalidatePath("/portfolio");
   revalidatePath("/sitemap.xml");
-  revalidatePath("/_cms/portfolio");
+  revalidatePath("/cms-internal/portfolio");
   revalidatePath(`${cmsBasePath}/portfolio`);
 }
 

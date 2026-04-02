@@ -19,8 +19,8 @@ function parseTaxonomyFormData(formData: FormData) {
 
 function revalidateTaxonomy(cmsBasePath: string) {
   revalidatePath("/blog");
-  revalidatePath("/_cms/categories");
-  revalidatePath("/_cms/tags");
+  revalidatePath("/cms-internal/categories");
+  revalidatePath("/cms-internal/tags");
   revalidatePath(`${cmsBasePath}/categories`);
   revalidatePath(`${cmsBasePath}/tags`);
 }

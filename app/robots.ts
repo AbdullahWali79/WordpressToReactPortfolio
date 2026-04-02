@@ -11,7 +11,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: [cmsBasePath, `${cmsBasePath}/`, "/_cms", "/_cms/"],
+        disallow: [cmsBasePath, `${cmsBasePath}/`, "/cms-internal", "/cms-internal/"],
       },
     ],
     sitemap: `${siteUrl}/sitemap.xml`,

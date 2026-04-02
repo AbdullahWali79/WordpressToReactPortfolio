@@ -35,7 +35,7 @@ function parsePageFormData(formData: FormData) {
 
 function revalidatePagePaths(cmsBasePath: string) {
   revalidatePath("/sitemap.xml");
-  revalidatePath("/_cms/pages");
+  revalidatePath("/cms-internal/pages");
   revalidatePath(`${cmsBasePath}/pages`);
 }
 

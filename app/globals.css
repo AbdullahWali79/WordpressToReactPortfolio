@@ -3,6 +3,8 @@
 @tailwind utilities;
 
 :root {
+  --font-heading: "Sora", "Avenir Next", "Segoe UI", sans-serif;
+  --font-body: "Source Sans 3", "Trebuchet MS", "Segoe UI", sans-serif;
   --background: 42 40% 98%;
   --foreground: 222 47% 11%;
   --muted: 40 20% 93%;
