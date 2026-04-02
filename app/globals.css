@@ -29,6 +29,41 @@ body {
   @apply bg-background text-foreground antialiased;
 }
 
+.public-theme {
+  background:
+    radial-gradient(circle at top right, color-mix(in srgb, var(--theme-accent) 10%, transparent), transparent 24%),
+    radial-gradient(circle at top left, color-mix(in srgb, var(--theme-primary) 12%, transparent), transparent 28%),
+    hsl(var(--background));
+}
+
+.public-theme .theme-hero {
+  background: var(--theme-hero-gradient);
+  color: var(--theme-hero-text);
+}
+
+.public-theme .theme-hero .btn-primary {
+  background-color: var(--theme-accent);
+  border-color: var(--theme-accent);
+  color: #fff;
+}
+
+.public-theme .theme-hero .btn-outline-light {
+  border-color: color-mix(in srgb, #fff 56%, transparent);
+}
+
+.public-theme .theme-surface {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+}
+
+.public-theme[data-theme="studio-carbon"] .theme-card-glow {
+  box-shadow: 0 22px 60px rgba(6, 18, 27, 0.42);
+}
+
+.public-theme[data-theme="editorial-luxe"] .theme-card-glow {
+  box-shadow: 0 24px 60px rgba(67, 50, 26, 0.14);
+}
+
 .container-main {
   @apply mx-auto max-w-6xl px-4 sm:px-6 lg:px-8;
 }

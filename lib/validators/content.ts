@@ -111,3 +111,14 @@ export const mediaSchema = z.object({
   provider: z.string().trim().max(80).optional().transform((v) => v || null),
   notes: z.string().trim().max(400).optional().transform((v) => v || null),
 });
+
+export const appearanceSchema = z.object({
+  active_theme: z.enum(["editorial-luxe", "studio-carbon"]),
+  primary_color: z.string().trim().regex(/^#[0-9a-fA-F]{6}$/),
+  accent_color: z.string().trim().regex(/^#[0-9a-fA-F]{6}$/),
+  surface_color: z.string().trim().regex(/^#[0-9a-fA-F]{6}$/),
+  background_color: z.string().trim().regex(/^#[0-9a-fA-F]{6}$/),
+  heading_font: z.string().trim().min(3).max(140),
+  body_font: z.string().trim().min(3).max(140),
+  button_radius: z.string().trim().min(2).max(20),
+});

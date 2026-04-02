@@ -150,6 +150,16 @@ create table if not exists public.settings (
   social_links jsonb not null default '{}'::jsonb,
   footer_text text,
   homepage_hero_content text,
+  active_theme text not null default 'editorial-luxe',
+  theme_settings jsonb not null default '{
+    "primary_color":"#0f3d56",
+    "accent_color":"#b88746",
+    "surface_color":"#fffaf2",
+    "background_color":"#f6efe5",
+    "heading_font":"Georgia, ''Times New Roman'', serif",
+    "body_font":"''Trebuchet MS'', ''Segoe UI'', sans-serif",
+    "button_radius":"14px"
+  }'::jsonb,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );

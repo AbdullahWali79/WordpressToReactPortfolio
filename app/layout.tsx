@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import "bootstrap/dist/css/bootstrap.min.css";
 import "@/app/globals.css";
 
 import { getPublicSettings } from "@/lib/supabase/queries/public";

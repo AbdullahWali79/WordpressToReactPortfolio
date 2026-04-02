@@ -15,14 +15,14 @@ export async function PublicHeader() {
   ];
 
   return (
-    <header className="border-b bg-card">
-      <div className="container-main flex h-16 items-center justify-between">
-        <Link href="/" className="font-semibold tracking-tight">
+    <header className="border-bottom bg-card/90 backdrop-blur">
+      <div className="container-main d-flex h-16 align-items-center justify-content-between gap-3">
+        <Link href="/" className="font-[family-name:var(--font-heading)] fw-semibold tracking-tight text-decoration-none text-foreground">
           {settings?.site_name ?? "Custom CMS"}
         </Link>
-        <nav className="hidden items-center gap-6 text-sm md:flex">
+        <nav className="d-none d-md-flex align-items-center gap-4 text-sm">
           {nav.map((item) => (
-            <Link key={item.href} href={item.href} className="text-muted-foreground hover:text-foreground">
+            <Link key={item.href} href={item.href} className="text-decoration-none text-muted-foreground hover:text-foreground">
               {item.label}
             </Link>
           ))}

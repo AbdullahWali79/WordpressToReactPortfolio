@@ -2,7 +2,6 @@ import Link from "next/link";
 
 import { BlogCard } from "@/components/content/blog-card";
 import { PortfolioCard } from "@/components/content/portfolio-card";
-import { Button } from "@/components/ui/button";
 import { getPublicSettings, getPublishedPortfolio, getPublishedPosts } from "@/lib/supabase/queries/public";
 
 export default async function HomePage() {
@@ -14,20 +13,49 @@ export default async function HomePage() {
 
   return (
     <div>
-      <section className="relative overflow-hidden border-b bg-gradient-to-br from-cyan-900 to-cyan-700 py-24 text-white">
+      <section className="theme-hero border-bottom py-5 py-lg-6">
         <div className="container-main">
-          <p className="text-sm uppercase tracking-[0.2em] text-cyan-100">Custom CMS Website</p>
-          <h1 className="mt-4 max-w-3xl font-[family-name:var(--font-heading)] text-4xl font-bold leading-tight sm:text-6xl">
-            {settings?.homepage_hero_content || "Modern portfolio and publishing platform built for speed and SEO."}
-          </h1>
-          <p className="mt-6 max-w-2xl text-cyan-100">{settings?.site_description}</p>
-          <div className="mt-10 flex flex-wrap gap-4">
-            <Button asChild className="bg-white text-cyan-900 hover:bg-cyan-50">
-              <Link href="/portfolio">View Portfolio</Link>
-            </Button>
-            <Button asChild variant="outline" className="border-white/60 bg-transparent text-white hover:bg-white/10">
-              <Link href="/blog">Read Blog</Link>
-            </Button>
+          <div className="row align-items-center gy-5">
+            <div className="col-lg-7">
+              <p className="text-uppercase small tracking-[0.24em] opacity-75">Custom CMS Website</p>
+              <h1 className="mt-3 max-w-3xl font-[family-name:var(--font-heading)] text-4xl font-bold leading-tight sm:text-6xl">
+                {settings?.homepage_hero_content || "Modern portfolio and publishing platform built for speed and SEO."}
+              </h1>
+              <p className="mt-4 max-w-2xl fs-5 opacity-75">{settings?.site_description}</p>
+              <div className="mt-4 d-flex flex-wrap gap-3">
+                <Link href="/portfolio" className="btn btn-primary btn-lg px-4">
+                  View Portfolio
+                </Link>
+                <Link href="/blog" className="btn btn-outline-light btn-lg px-4">
+                  Read Blog
+                </Link>
+              </div>
+            </div>
+
+            <div className="col-lg-5">
+              <div className="theme-surface theme-card-glow rounded-4 p-4 p-lg-5 text-foreground">
+                <p className="mb-2 text-uppercase small tracking-[0.2em] text-primary">Publishing Flow</p>
+                <h2 className="font-[family-name:var(--font-heading)] text-3xl font-semibold">Two premium looks. One CMS.</h2>
+                <p className="mt-3 text-muted-foreground">
+                  Switch between advanced visual systems from the new Appearance panel, then fine-tune fonts and colors
+                  without touching code.
+                </p>
+                <div className="mt-4 row g-3">
+                  <div className="col-6">
+                    <div className="rounded-4 border p-3">
+                      <p className="mb-1 text-sm font-semibold">SEO Ready</p>
+                      <p className="mb-0 text-xs text-muted-foreground">Metadata, schema, sitemap, and publishing score.</p>
+                    </div>
+                  </div>
+                  <div className="col-6">
+                    <div className="rounded-4 border p-3">
+                      <p className="mb-1 text-sm font-semibold">Media URLs</p>
+                      <p className="mb-0 text-xs text-muted-foreground">GitHub, Drive, Canva, and YouTube supported.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

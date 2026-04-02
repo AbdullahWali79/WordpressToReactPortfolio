@@ -2,6 +2,18 @@ export type Role = "admin" | "editor" | "author";
 export type ContentStatus = "draft" | "published";
 export type MediaType = "image" | "video";
 
+export type ThemeId = "editorial-luxe" | "studio-carbon";
+
+export type ThemeSettings = {
+  primary_color: string;
+  accent_color: string;
+  surface_color: string;
+  background_color: string;
+  heading_font: string;
+  body_font: string;
+  button_radius: string;
+};
+
 export type SeoEntity = {
   seo_title: string | null;
   meta_description: string | null;
@@ -88,6 +100,8 @@ export type SiteSettings = {
   social_links: Record<string, string> | null;
   footer_text: string | null;
   homepage_hero_content: string | null;
+  active_theme: ThemeId | null;
+  theme_settings: ThemeSettings | null;
   created_at: string;
   updated_at: string;
 };
