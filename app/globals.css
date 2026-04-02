@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 42 40% 98%;
+  --foreground: 222 47% 11%;
+  --muted: 40 20% 93%;
+  --muted-foreground: 220 10% 35%;
+  --card: 0 0% 100%;
+  --card-foreground: 222 47% 11%;
+  --border: 34 18% 85%;
+  --input: 34 18% 85%;
+  --primary: 193 95% 26%;
+  --primary-foreground: 210 40% 98%;
+  --ring: 193 95% 32%;
+  --danger: 0 72% 40%;
+  --danger-foreground: 0 0% 100%;
+  --radius: 0.7rem;
+}
+
+* {
+  @apply border-border;
+}
+
+body {
+  @apply bg-background text-foreground antialiased;
+}
+
+.container-main {
+  @apply mx-auto max-w-6xl px-4 sm:px-6 lg:px-8;
+}
+
+.prose-rich p {
+  @apply mb-4 leading-7;
+}
+
+.prose-rich h2 {
+  @apply mt-8 mb-4 text-2xl font-semibold;
+}
+
+.prose-rich h3 {
+  @apply mt-6 mb-3 text-xl font-semibold;
+}
+
+.prose-rich ul,
+.prose-rich ol {
+  @apply mb-4 ml-5 list-disc space-y-1;
+}
+
+.prose-rich ol {
+  @apply list-decimal;
+}
+
+.prose-rich a {
+  @apply text-primary underline;
+}
+
+.prose-rich blockquote {
+  @apply my-4 border-l-4 border-primary/50 pl-4 italic text-muted-foreground;
+}
