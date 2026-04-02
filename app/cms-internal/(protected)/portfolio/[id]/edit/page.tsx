@@ -13,13 +13,21 @@ export default async function EditPortfolioPage({ params }: EditPortfolioPagePro
   const { id } = await params;
   const cmsBasePath = getCmsBasePath();
   const supabase = await createSupabaseServerClient();
-  const { data: project } = await supabase.from("portfolio_projects").select("*").eq("id", id).maybeSingle();
+  const [{ data: project }, { data: mediaItems }] = await Promise.all([
+    supabase.from("portfolio_projects").select("*").eq("id", id).maybeSingle(),
+    supabase.from("media_items").select("*").order("created_at", { ascending: false }),
+  ]);
   if (!project) notFound();
 
   return (
     <div className="space-y-4">
       <h1 className="text-3xl font-semibold">Edit Project</h1>
-      <PortfolioForm action={updatePortfolioAction} previewHref={`${cmsBasePath}/preview/portfolio/${id}`} initial={project} />
+      <PortfolioForm
+        action={updatePortfolioAction}
+        mediaItems={mediaItems ?? []}
+        previewHref={`${cmsBasePath}/preview/portfolio/${id}`}
+        initial={project}
+      />
     </div>
   );
 }

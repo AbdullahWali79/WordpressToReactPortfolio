@@ -23,6 +23,7 @@ alter table public.categories enable row level security;
 alter table public.tags enable row level security;
 alter table public.post_tags enable row level security;
 alter table public.settings enable row level security;
+alter table public.media_items enable row level security;
 alter table public.audit_logs enable row level security;
 
 -- PROFILES
@@ -175,6 +176,20 @@ using (true);
 drop policy if exists "settings_admin_manage" on public.settings;
 create policy "settings_admin_manage"
 on public.settings
+for all
+using (public.is_admin())
+with check (public.is_admin());
+
+-- MEDIA ITEMS
+drop policy if exists "media_items_admin_select" on public.media_items;
+create policy "media_items_admin_select"
+on public.media_items
+for select
+using (public.is_admin());
+
+drop policy if exists "media_items_admin_manage" on public.media_items;
+create policy "media_items_admin_manage"
+on public.media_items
 for all
 using (public.is_admin())
 with check (public.is_admin());

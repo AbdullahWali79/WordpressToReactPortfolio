@@ -54,6 +54,9 @@ export default async function CmsDashboardPage() {
             <Link className="block text-primary hover:underline" href={`${cmsBasePath}/portfolio/new`}>
               Add portfolio project
             </Link>
+            <Link className="block text-primary hover:underline" href={`${cmsBasePath}/media`}>
+              Open media library
+            </Link>
           </CardContent>
         </Card>
 

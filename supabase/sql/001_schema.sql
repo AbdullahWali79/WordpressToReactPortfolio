@@ -154,6 +154,20 @@ create table if not exists public.settings (
   updated_at timestamptz not null default now()
 );
 
+-- Media library (URL-only)
+create table if not exists public.media_items (
+  id uuid primary key default gen_random_uuid(),
+  title text not null,
+  media_type text not null check (media_type in ('image', 'video')),
+  source_url text not null,
+  thumbnail_url text,
+  alt_text text,
+  provider text,
+  notes text,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
 -- Audit logs
 create table if not exists public.audit_logs (
   id uuid primary key default gen_random_uuid(),
@@ -180,6 +194,10 @@ for each row execute function public.set_updated_at();
 
 drop trigger if exists settings_set_updated_at on public.settings;
 create trigger settings_set_updated_at before update on public.settings
+for each row execute function public.set_updated_at();
+
+drop trigger if exists media_items_set_updated_at on public.media_items;
+create trigger media_items_set_updated_at before update on public.media_items
 for each row execute function public.set_updated_at();
 
 -- Profile creation on auth signup
@@ -219,6 +237,7 @@ create index if not exists idx_portfolio_slug on public.portfolio_projects(slug)
 create index if not exists idx_post_tags_post_id on public.post_tags(post_id);
 create index if not exists idx_post_tags_tag_id on public.post_tags(tag_id);
 create index if not exists idx_audit_logs_created_at on public.audit_logs(created_at desc);
+create index if not exists idx_media_items_type_created_at on public.media_items(media_type, created_at desc);
 
 -- Text search indexes (simple GIN)
 create index if not exists idx_posts_search on public.posts using gin (to_tsvector('english', coalesce(title, '') || ' ' || coalesce(excerpt, '') || ' ' || coalesce(content, '')));
