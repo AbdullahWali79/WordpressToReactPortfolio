@@ -554,56 +554,6 @@ begin
   end if;
 end $$;
 
--- SECTION 4: MEDIA LIBRARY
-create table if not exists public.media_items (
-  id uuid primary key default gen_random_uuid(),
-  title text not null,
-  media_type text not null check (media_type in ('image', 'video')),
-  source_url text not null,
-  thumbnail_url text,
-  alt_text text,
-  provider text,
-  notes text,
-  created_at timestamptz not null default now(),
-  updated_at timestamptz not null default now()
-);
-
-drop trigger if exists media_items_set_updated_at on public.media_items;
-create trigger media_items_set_updated_at before update on public.media_items
-for each row execute function public.set_updated_at();
-
-create index if not exists idx_media_items_type_created_at on public.media_items(media_type, created_at desc);
-
-alter table public.media_items enable row level security;
-
-drop policy if exists "media_items_admin_select" on public.media_items;
-create policy "media_items_admin_select"
-on public.media_items
-for select
-using (public.is_admin());
-
-drop policy if exists "media_items_admin_manage" on public.media_items;
-create policy "media_items_admin_manage"
-on public.media_items
-for all
-using (public.is_admin())
-with check (public.is_admin());
-
--- SECTION 5: APPEARANCE THEMES
-alter table public.settings
-add column if not exists active_theme text not null default 'editorial-luxe';
-
-alter table public.settings
-add column if not exists theme_settings jsonb not null default '{
-  "primary_color":"#0f3d56",
-  "accent_color":"#b88746",
-  "surface_color":"#fffaf2",
-  "background_color":"#f6efe5",
-  "heading_font":"Georgia, ''Times New Roman'', serif",
-  "body_font":"''Trebuchet MS'', ''Segoe UI'', sans-serif",
-  "button_radius":"14px"
-}'::jsonb;
-
--- SECTION 6: SET YOUR ADMIN EMAIL
+-- SECTION 4: SET YOUR ADMIN EMAIL
 -- Replace with your actual admin login email
-update public.profiles set role = 'admin' where email = 'your-admin-email@example.com';
+update public.profiles set role = 'admin' where email = 'abdullahwale@gmail.com';
