@@ -8,11 +8,10 @@ import {
   X,
   ChevronDown,
   Search,
-  Sun,
-  Moon,
   Phone,
   Mail,
 } from "lucide-react";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { cn } from "@/lib/utils";
 
 interface NavItem {
@@ -185,6 +184,11 @@ export function PublicHeader() {
               >
                 <Search className="h-5 w-5" />
               </Link>
+
+              {/* Theme Toggle */}
+              <div className="hidden sm:block">
+                <ThemeToggle />
+              </div>
 
               {/* CTA Button */}
               <Link

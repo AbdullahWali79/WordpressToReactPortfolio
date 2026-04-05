@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "@/app/globals.css";
 
 import { getPublicSettings } from "@/lib/supabase/queries/public";
+import { ThemeProvider } from "@/components/theme-provider";
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getPublicSettings();
@@ -15,8 +16,17 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className="min-h-screen font-[family-name:var(--font-body)]">{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body className="min-h-screen font-[family-name:var(--font-body)]">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
