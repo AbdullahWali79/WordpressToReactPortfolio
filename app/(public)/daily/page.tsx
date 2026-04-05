@@ -196,7 +196,7 @@ export default async function DailyContentPage() {
                           </p>
                           {tool.features && tool.features.length > 0 && (
                             <div className="flex flex-wrap gap-1 mb-3">
-                              {tool.features.slice(0, 3).map((feature, i) => (
+                              {tool.features.slice(0, 3).map((feature: string, i: number) => (
                                 <Badge key={i} variant="outline" className="text-xs">
                                   {feature}
                                 </Badge>

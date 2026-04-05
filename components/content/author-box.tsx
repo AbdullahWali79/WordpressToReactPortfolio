@@ -11,8 +11,9 @@ interface AuthorBoxProps {
 }
 
 export function AuthorBox({ author, publishedAt }: AuthorBoxProps) {
-  const defaultAuthor = {
+  const defaultAuthor: AuthorBoxProps["author"] = {
     name: "Editorial Team",
+    avatar: null,
     bio: "We create helpful content about web development, design, and digital marketing.",
     role: "Content Team",
   };
