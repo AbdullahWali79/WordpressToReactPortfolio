@@ -2,6 +2,7 @@ import type { CSSProperties } from "react";
 
 import { buildThemeCssVariables, getThemePreset } from "@/lib/theme/presets";
 import { getPublicSettings } from "@/lib/supabase/queries/public";
+import { AnimatedWrapper } from "./animated-wrapper";
 
 export async function PublicThemeShell({ children }: { children: React.ReactNode }) {
   const settings = await getPublicSettings();
@@ -10,7 +11,9 @@ export async function PublicThemeShell({ children }: { children: React.ReactNode
 
   return (
     <div className="public-theme min-h-screen" data-theme={theme.id} style={style}>
-      {children}
+      <AnimatedWrapper>
+        {children}
+      </AnimatedWrapper>
     </div>
   );
 }

@@ -139,3 +139,36 @@ export async function getSearchResults(keyword: string) {
 
   return { posts, pages, portfolio };
 }
+
+// Get related posts by category or tags
+export async function getRelatedPosts(currentPostId: string, categoryId?: string | null, limit: number = 3) {
+  const supabase = await createSupabaseServerClient();
+  
+  let query = supabase
+    .from("posts")
+    .select("id,title,slug,excerpt,featured_image_url,image_alt,published_at")
+    .eq("status", "published")
+    .neq("id", currentPostId)
+    .order("published_at", { ascending: false, nullsFirst: false })
+    .limit(limit);
+  
+  if (categoryId) {
+    query = query.eq("category_id", categoryId);
+  }
+  
+  const { data } = await query;
+  
+  // If no related posts by category, get recent posts
+  if (!data || data.length === 0) {
+    const { data: recentPosts } = await supabase
+      .from("posts")
+      .select("id,title,slug,excerpt,featured_image_url,image_alt,published_at")
+      .eq("status", "published")
+      .neq("id", currentPostId)
+      .order("published_at", { ascending: false, nullsFirst: false })
+      .limit(limit);
+    return recentPosts ?? [];
+  }
+  
+  return data;
+}
