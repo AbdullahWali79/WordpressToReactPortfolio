@@ -168,3 +168,54 @@ Frontend outputs:
 - Rich content sanitization before rendering
 - Security headers in `next.config.ts`
 - Audit logs for CMS actions
+
+## Keep-Alive System (Database Activity)
+
+To prevent Supabase project from pausing due to inactivity, this system automatically refreshes content daily:
+
+### Features
+- **Islamic Quotes**: Daily rotating Islamic quotes with categories
+- **Educational Jokes**: Programming, math, and science jokes
+- **AI Tools**: Featured AI tools with descriptions and links
+
+### How It Works
+1. Content expires after 24 hours (auto-cleanup)
+2. New content is generated daily via cron job or manual refresh
+3. Old data is automatically deleted to keep database clean
+4. Dashboard widget shows current content and refresh status
+
+### Setup
+
+1. **Run the SQL migration**:
+   ```bash
+   # Execute supabase/sql/004_daily_content.sql in Supabase SQL Editor
+   ```
+
+2. **Configure Cron Job** (Vercel Pro required):
+   ```json
+   // Already configured in vercel.json
+   {
+     "crons": [
+       {
+         "path": "/api/cron/keep-alive",
+         "schedule": "0 0 * * *"
+       }
+     ]
+   }
+   ```
+
+3. **Optional - Add Secret Key**:
+   ```bash
+   # Add to .env.local
+   CRON_SECRET_KEY=your-secret-key
+   ```
+
+### Manual Refresh
+Visit `/secure-control-panel/dashboard` and use the "Keep-Alive System" widget to:
+- Refresh content manually
+- View current daily content
+- Ping database to keep active
+- Cleanup expired data
+
+### Public Page
+Daily content is displayed at `/daily` for visitors to see.

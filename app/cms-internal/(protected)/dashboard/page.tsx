@@ -37,6 +37,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { getCmsBasePath } from "@/lib/env";
 import { formatDate } from "@/lib/utils";
+import { DailyContentWidget } from "@/components/cms/daily-content-widget";
 
 // Mock data - in real implementation, fetch from API
 const activityData = [
@@ -451,6 +452,9 @@ export default function CmsDashboardPage() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Keep-Alive Daily Content Widget */}
+      <DailyContentWidget />
     </div>
   );
 }

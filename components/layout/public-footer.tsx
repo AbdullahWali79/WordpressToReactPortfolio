@@ -30,7 +30,7 @@ const footerLinks = {
   resources: [
     { label: "Blog", href: "/blog" },
     { label: "Portfolio", href: "/portfolio" },
-    { label: "Case Studies", href: "/portfolio" },
+    { label: "Daily Inspiration", href: "/daily" },
     { label: "FAQ", href: "/faq" },
   ],
   legal: [
